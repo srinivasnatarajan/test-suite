@@ -1,0 +1,17 @@
+image: atlassian/default-image:3
+
+options:
+  docker: true
+
+pipelines:
+  branches:
+    master:
+      - step:
+          name: Build and Run Regression
+          script:
+            - export COMMIT_ID=$(git rev-parse --short HEAD)
+            - export CI=true
+            - docker build -t ${BITBUCKET_REPO_SLUG}:${COMMIT_ID} --build-arg="CI=${CI}" --build-arg="MAILGUN_DOMAIN=${MAILGUN_DOMAIN}"   --build-arg="MAILGUN_API_KEY=${MAILGUN_API_KEY}" --build-arg="SENDER_EMAIL=${SENDER_EMAIL}" --build-arg="TO_EMAIL=${TO_EMAIL}" .
+            - docker run ${BITBUCKET_REPO_SLUG}:${COMMIT_ID}
+          services:
+            - docker
