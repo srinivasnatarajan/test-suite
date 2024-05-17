@@ -17,7 +17,7 @@ class ApiHelper:
 
     @staticmethod
     def make_request(url: str, method: str, data: [dict, None] = None, header: [dict, None] = {}, auth=None,
-                     query_param: [dict, None] = None, validate: bool = True) -> dict:
+                     query_param: [dict, None] = None, validate: bool = True, params={'page': 2}) -> dict:
         Logger.log_request(url, method, data, ApiHelper.construct_header(header), query_param)
         response = None
         try:

@@ -16,19 +16,18 @@ load_dotenv()
 def execute_suite(args):
     try:
         path = Constant.TEST_FOLDER
-        report_path = Constant.REPORT_FOLDER + "/report.html"
+        report_path = f"{Constant.REPORT_FOLDER}/report.html"
         pytest.main(
             [
                 path,
-                "-m " + Constant.config['type'],
+                f"-m {Constant.config['type']}",
                 "--tb=line",
                 "-v",
-                "--html=" + report_path,
+                f"--html={report_path}",
                 "--self-contained-html",
-                "-k " + Constant.config["testFilter"],
+                f"-k {Constant.config['testFilter']}",
             ]
         )
-
     except Exception as e:
         print("failure path message: ", e)
 
